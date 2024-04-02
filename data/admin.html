@@ -1,0 +1,391 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Demonstrátor světlometů</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <link rel="icon" href="data:,">
+    <style>
+        html {
+            font-family: Arial;
+        }
+
+        body {
+            margin: 0;
+        }
+
+        .navmenu ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #2a3fc9;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .navmenu li {
+            float: left;
+            width: 33.33%;
+        }
+
+        .navmenu button {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 0px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            font-size: 18px;
+        }
+
+        @media (max-width: 767px) {
+            .navmenu button {
+                font-size: 16px;
+            }
+        }
+
+        .navmenu button:hover:not(.active) {
+            background-color: #00a2ff;
+        }
+
+        .top {
+            overflow: hidden;
+            background-color: #2a3fc9;
+            width: auto;
+            box-shadow: 0px 2px 10px #363636b0;
+        }
+
+        .top h1 {
+            margin: 0;
+            font-size: 30px;
+            color: white;
+            text-align: right;
+            padding: 21px 21px 21px 10px;
+        }
+
+        .top .logo {
+            max-width: 100px;
+            padding: 5px;
+            float: left;
+        }
+
+        .loginForm h2,
+        .loginStatus {
+            font-size: 26px;
+            font-weight: bold;
+            color: #2a3fc9;
+        }
+
+        .loginStatus {
+            margin-bottom: 0;
+            display: block;
+        }
+
+        .card {
+            background-color: #F8F7F9;
+            padding: 10px 0 20px;
+            border-radius: 10px;
+            margin: 0 auto;
+        }
+
+        .loginForm {
+            display: inline;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            padding-top: 70px;
+            background-color: #16161699;
+            text-align: center;
+        }
+
+        .cardContainer {
+            padding: 30px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .loginForm button {
+            padding: 15px 50px;
+            font-size: 30px;
+            text-align: center;
+            outline: none;
+            color: #fff;
+            background-color: #0ffa6d;
+            border: #0ffa6d;
+            border-radius: 5px;
+            user-select: none;
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .loginForm button:active {
+            background-color: #3e8e41;
+            transform: translateY(2px);
+        }
+
+        .loginForm input {
+            pointer-events:none;
+            width: 60%;
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .loginForm label {
+            width: 100%;
+            margin-top: 10px;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: bold;
+            font-size: 25px;
+        }
+
+        .configForm h1 {
+            font-size: 2em;
+            text-align: left;
+            margin-left: 12px;
+        }
+
+        .configForm table {
+            font-size: 18px;
+            width: 100%;
+        }
+
+        .configForm th, td:not(.container) {
+            padding: 10px;
+            text-align: left;
+            box-sizing: border-box;
+        }
+
+        .paramForm th, td {
+            width: 50%;
+        }
+
+        .settingForm th, td {
+            width: 33.33%;
+        }
+
+        .configForm input {
+            text-align: right;
+            width: 100%;
+            font-size: 20px;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .configForm button {
+            padding: 10px 20px;
+            margin: 10px 0;
+            font-size: 22px;
+            outline: none;
+            color: #fff;
+            background-color: #0ffa6d;
+            border: #0ffa6d;
+            border-radius: 5px;
+            user-select: none;
+        }
+
+        .configForm button:active {
+            background-color: #3e8e41;
+        }
+
+        .configForm br {
+            display: block;
+            content: "";
+            margin-top: 50px;
+        }
+
+        .configForm .restartButton {
+            background-color: #f5140c;
+        }
+
+        .configForm .restartButton:active {
+            background-color: #920c0c;
+        }
+
+        .configForm .blueButton {
+            background-color: #0d45ff;
+        }
+
+        .configForm .blueButton:active {
+            background-color: #15039c;
+        }
+
+        .configForm select {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 100%;
+            color: #000;
+            cursor: pointer;
+            font-size: 20px;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .configForm h2 {
+            font-size: 25px;
+            margin: 0;
+        }
+
+        .configForm h3 {
+            font-size: 20px;
+            margin: 0;
+        }
+
+        .configForm input[type="checkbox"] {
+            height: 25px;
+            width: 25px;
+        }
+       
+    </style>
+</head>
+
+<body>
+    <div class="top">
+        <img src="logo.svg" alt="Logo" class="logo">
+        <h1>Admin panel</h1>
+    </div>
+    <div class="loginForm" id="loginForm">
+        <div class="cardContainer">
+            <div class="card">
+                <h2>Přihlášení do správy systému</h2>      
+                    <label for="password"> 
+                            Heslo: 
+                        </label> 
+                    <input type="password"
+                            id="password" 
+                            placeholder="Zadejte heslo" required> 
+                    <button class="loginButton" id="loginButton" onclick="login()">Potvrdit</button> 
+                <h3 class="loginStatus" id="status">Navazování spojení se serverem...</h3>
+            </div>
+        </div>
+    </div>
+    <div class="configForm" id="configForm">
+        <div class="settingsForm" id="settingsForm">
+            <h1>Nastavení</h1>
+            <table>
+                <tr>
+                    <th></th>
+                    <th>Aktuální hodnota</th>
+                    <th>Nová hodnota</th>
+                </tr>
+                <tr>
+                    <td>WiFi SSID</td>
+                    <td id="cvSsid">NA</td>
+                    <td><input type="text" onblur="checkLength(this)" id="configSsid" minlength="1" maxlength="30"></td>
+                </tr>
+                <tr>
+                    <td>WiFi heslo</td>
+                    <td id="cvWifipass">NA</td>
+                    <td><input type="text" onblur="checkLength(this)" id="configWifipass" minlength="8" maxlength="60"></td>
+                </tr>
+                <tr>
+                    <td>Maximální počet zařízení připojených k WiFi</td>
+                    <td id="cvMaxcon">NA</td>
+                    <td><input type="number" onblur="checkValue(this)" id="configMaxcon" min="1" max="10"></td>
+                </tr>
+                <tr>
+                    <td>mDNS</td>
+                    <td id="cvMdns">NA</td>
+                    <td><input type="text" onblur="checkLength(this)" id="configMdns" minlength="3" maxlength="16"></td>
+                </tr>
+                <tr>
+                    <td>Heslo ke správě</td>
+                    <td id="cvAdminpass">******</td>
+                    <td><input type="text" onblur="checkLength(this)" id="configAdminpass" minlength="4" maxlength="60"></td>
+                </tr>
+                <tr>
+                    <td colspan="3"><button onclick="changeConfig()">Uložit nastavení</button></td>
+                </tr>
+                <tr>
+                    <td colspan="3"><button class="blueButton" onclick="defaultConfig(this)">Obnovit základní nastavení</button></td>
+                </tr>
+                <tr>
+                    <td colspan="3"><button class="restartButton" onclick="restart(this)">Restartovat zařízení</button></td>
+                </tr>
+            </table>
+            <br>
+        </div>
+        <div class="paramForm" id="paramForm">
+            <h1>Parametritace světlometu</h1>
+            <table>
+                <tr>
+                    <td>Počet světlometů</td>
+                    <td><select class="select" onchange="generateLights(this)">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                    </select></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><h2>1. světlomet:</h2></td>
+                </tr>
+                <tr>
+                    <td>Počet driverů</td>
+                    <td><input type="number" id="parNod1" onblur="checkValue(this)" onchange="generateDrivers(this, 1)" min="1" max="16"></td>
+                </tr>
+                <tr> 
+                    <td id="driverContainer1" class="container" colspan="2"></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><h3>Rozdělení 1. světlometu na části:</h3></td>
+                </tr>
+                <tr>
+                    <td>Počet částí:</td>
+                    <td><input type="number" id="parNop1" onblur="checkValue(this)" onchange="generateParts(this, 1)" min="1" max="5"></td>
+                </tr>
+                <tr> 
+                    <td id="partContainer1" class="container" colspan="2"></td>
+                </tr>
+                <tr> 
+                    <td id="lightContainer" class="container" colspan="2"></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button onclick="collectParamFormData()">Uložit nastavení</button></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button class="restartButton" onclick="restart(this)">Restartovat zařízení</button></td>
+                </tr>
+            </table>
+            <br>
+        </div>
+        <div class="debugForm" id="debugForm">
+            <h1>Otestování světlometu</h1>
+            <table>
+                <tr>
+                    <td>Zapnout testovací režim</td>
+                    <td><input type="checkbox" onclick="generateDebug(this)"></td>
+                </tr>
+                <tr> 
+                    <td id="debugLightContainer" class="container" colspan="2"></td>
+                </tr>
+            </table>
+            <br>
+        </div>
+    </div>
+    <div class="navmenu">
+        <ul>
+            <li><button id="nav1" onclick="navmenu(1)">Nastavení</button></li>
+            <li><button id="nav2" onclick="navmenu(2)">Parametrizace</button></li>
+            <li><button id="nav3" onclick="navmenu(3)">Test světlometu</button></li>
+        </ul>
+    </div>
+    <script src="admin.js"></script>
+</body>
+</html>
